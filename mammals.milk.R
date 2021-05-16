@@ -6,8 +6,7 @@ install.packages('cluster.datasets') #Biblioteca para chamar o conjunto de dados
 #Carrega bibliotecas
 library(cluster.datasets)
 
-#Carrega o conjunto de dados leite de mamiferos para a memoria
-data(all.mammals.milk.1956)
+#Carrega o conjunto de dados leite de mamiferos
 dados <-all.mammals.milk.1956
 
 summary(dados) #Visualiza resumo descritivo das variaveis
@@ -18,13 +17,9 @@ dados$name <- NULL #Exclui a coluna nome, pois nos algoritmos de clusters so ent
 
 #Calcula distancia eucliciana de cada animal com todos os demais e guarda em uma matriz de distancias
 distancias <- dist(dados, method = 'euclidean')
-distancias
-
-View(as.matrix(distancias))
 
 #Agrupa os animais a partir da matriz de distancias
 clusterizacao <- hclust(distancias, method = 'ward.D')
-clusterizacao
 
 #Plota o dendrograma
 plot(clusterizacao,ylab = 'Distancia Euclidiana')
