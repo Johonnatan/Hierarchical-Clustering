@@ -16,11 +16,6 @@ rownames(dados) <- dados$name #Adiciona o nome de cada animal ao nome da linha
 
 dados$name <- NULL #Exclui a coluna nome, pois nos algoritmos de clusters so entram variaveis numericas ou factor
 
-#Nao ha necessidade padronizar os dados pois todos estao em percentual
-#mas caso fosse necessario o comando seria scale() Exemplo:
-dados_transformados <- scale(dados)
-dados_transformados
-
 #Calcula distancia eucliciana de cada animal com todos os demais e guarda em uma matriz de distancias
 distancias <- dist(dados, method = 'euclidean')
 distancias
