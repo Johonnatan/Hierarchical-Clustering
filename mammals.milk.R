@@ -1,25 +1,33 @@
-rm(list=ls(all=TRUE)) #Remove objetos da memória do R
+#Remove objetos da memória do R
+rm(list=ls(all=TRUE)) 
 
-#Instala bibliotecas necessarias
-install.packages('cluster.datasets') #Biblioteca para chamar o conjunto de dados
+#Instala bibliotecas 
+install.packages('cluster.datasets') 
 
 #Carrega bibliotecas
 library(cluster.datasets)
 
-#Carrega o conjunto de dados leite de mamiferos
-dados <-all.mammals.milk.1956
+#Carrega o conjunto de dataframe para um dataframe
+data(all.mammals.milk.1956)
+dataframe <-all.mammals.milk.1956
 
-summary(dados) #Visualiza resumo descritivo das variaveis
+#Visualiza sumario dos dados
+summary(dataframe) 
 
-rownames(dados) <- dados$name #Adiciona o nome de cada animal ao nome da linha
+#Adiciona o nome de cada animal ao nome da linha
+rownames(dataframe) <- dataframe$name
 
-dados$name <- NULL #Exclui a coluna nome, pois nos algoritmos de clusters so entram variaveis numericas ou factor
+#Exclui a coluna nome
+dataframe$name <- NULL
 
-#Calcula distancia eucliciana de cada animal com todos os demais e guarda em uma matriz de distancias
-distancias <- dist(dados, method = 'euclidean')
+#Calcula distancia eucliciana de cada animal
+distance <- dist(dataframe, method = 'euclidean')
 
-#Agrupa os animais a partir da matriz de distancias
-clusterizacao <- hclust(distancias, method = 'ward.D')
+#Agrupa os animais a partir da matriz de distance
+cluster <- hclust(distance, method = 'ward.D')
 
 #Plota o dendrograma
-plot(clusterizacao,ylab = 'Distancia Euclidiana')
+plot(cluster,ylab = 'Distancia Euclidiana')
+
+#Selecione o valor de k no dendrograma
+rect.hclust(cluster , k = 7)
